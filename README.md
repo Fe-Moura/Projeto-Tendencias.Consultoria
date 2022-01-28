@@ -1,7 +1,7 @@
 # Projeto-Tendencias.Consultoria
   Conforme solicitado, foi feito um site com servidor (em JS), onde deve ter uma página de Login e Registro de usuários funcionais com acusações de username/password incorretos.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Orientações:
+Orientações: 
  - O computador necessita ter node.js instalado.
 I)Para o servidor rodar perfeitamente, algumas coisas precisam ser baixadas no terminal:
     1 - npm init (este deve ser, obrigatoriamente, o primeiro comando)
