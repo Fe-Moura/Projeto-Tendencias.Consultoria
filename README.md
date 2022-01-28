@@ -1,3 +1,5 @@
+<code
+print("""
 # Projeto-Tendencias.Consultoria
   Conforme solicitado, foi feito um site com servidor (em JS), onde deve ter uma página de Login e Registro de usuários funcionais com acusações de username/password incorretos.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -20,4 +22,4 @@ III)Se tudo correu bem, basta abrir o google:
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 Autoria: Felipe Moura Pereira
 Criado em 26/01/2022
-.
+""");
