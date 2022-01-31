@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <style>
+            :root {
+                --input-linear: linear-gradient(120deg, #F75590, #00C2CB);
+                --input-error: red;
+                --button-linear: linear-gradient(120deg, #F75590, #00C2CB, #F75590);
+                --button-disabled: #acacac;
+                --button-success: rgb(18, 151, 107);
+                --white: #fff;
+                --black: #303030;
+                --gray: #929292;
+                --light-gray: #cfcfcf;
+                --border-height: 1px;
+            }
+
+            body {
+                padding: 0;
+                margin: 0;
+                font-family: sans-serif;
+            }
+
+            .login {
+                height: 100vh;
+                background: var(--input-linear);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .login__container {
+                min-height: 400px;
+                width: 300px;
+                background-color: var(--white);
+                box-sizing: border-box;
+                padding: 32px;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border: black solid 1px;
+            }
+
+            .login__title {
+                margin-bottom: 32px;
+                color: var(--black);
+            }
+
+            .login__form {
+                width: 92%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #space{
+                height: 48px;
+                width: 100%;
+                box-sizing: border-box;
+                padding-left: 8px;
+                border: unset;
+                outline: none;
+                position: relative;
+            }
+            #space1{
+                height: 48px;
+                width: 100%;
+                box-sizing: border-box;
+                padding-left: 8px;
+                border: unset;
+                outline: none;
+                position: relative;
+            }
+            #space2{
+                height: 48px;
+                width: 100%;
+                box-sizing: border-box;
+                padding-left: 8px;
+                border: unset;
+                outline: none;
+                position: relative;
+            }
+            #space3{
+                height: 48px;
+                width: 100%;
+                box-sizing: border-box;
+                padding-left: 8px;
+                border: unset;
+                outline: none;
+                position: relative;
+            }
+
+
+            .login__input-border {
+                height: var(--border-height);
+                width: 100%;
+                margin-bottom: 16px;
+                background: var(--light-gray);
+                transition: .3s ease-in-out;
+            }
+
+            .login__input-border::after {
+                content: '';
+                display: block;
+                height: var(--border-height);
+                width: 0;
+                margin-bottom: 16px;
+                background: var(--input-linear);
+                transition: .3s ease-in-out;
+            }
+
+            .login__input:focus + .login__input-border::after {
+                width: 100%;
+            }
+
+            .login__input-border.error {
+                background: var(--input-error);
+            }
+
+            .login__input-border.error::after {
+                background: var(--input-error);
+            }
+
+            #botaoRegistro {
+                height: 60px;
+                width: 100%;
+                padding-left: 8px;
+                outline: none;
+                position: relative;
+                background: var(--button-linear);
+                background-size: 200%;
+                margin-bottom: 32px;
+                color: var(--white);
+                font-size: 16px;
+                font-weight: bold;
+                border: unset;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.5s ease;
+                top: -25%;
+            }
+
+            #botaoLogin {
+                height: 50px;
+                width: 100%;
+                padding-left: 8px;
+                outline: none;
+                position: relative;
+                background: var(--button-linear);
+                background-size: 200%;
+                margin-bottom: 32px;
+                color: var(--white);
+                font-size: 16px;
+                font-weight: bold;
+                border: unset;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.5s ease;
+                top: -20%;
+            }
+
+            #botao:disabled {
+                background: var(--button-disabled);
+                cursor: not-allowed;
+            }
+
+            #botao:hover {
+                background-position: right;
+            }
+
+            .login__submit.success {
+                background: var(--button-success);
+            }
+
+            .login__submit.error {
+                background: var(--input-error);
+            }
+
+            .login__reset {
+                font-size: 12px;
+                color: var(--gray);
+                text-decoration: none;
+                position: absolute;
+                top: 93%;
+            }
+            .login__reset2 {
+                font-size: 14px;
+                color: var(--gray);
+                text-decoration: none;
+                position: absolute;
+                top: 55%;
+            }
+            .login__reset3 {
+                font-size: 14px;
+                color: var(--gray);
+                text-decoration: none;
+                position: absolute;
+                top: 65%;
+            }
+            .loading {
+                border: 16px solid lightgrey;
+                width: 50px;
+                height: 50px;
+                border-top: 16px solid mediumpurple;
+                border-radius: 50%;
+                animation: spin 1.5s linear infinite;
+            }
+            .loading2 {
+                border: 16px solid lightgrey;
+                width: 40px;
+                height: 40px;
+                border-top: 16px solid mediumpurple;
+                border-radius: 50%;
+                animation: spin 1.5s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% {transform: rotate(360deg);}
+            }
+        </style>
+    </head>
+
+    <body>
+        <main class="login">
+            <div class="login__container" style="position: absolute; left: 25% ; width: 20% ; height: 65%">
+                <h1 class="login__title">Register</h1>
+                <form action="/cadastra" method="post" class="login__form">
+                    <input id="space" type="text" placeholder="E-mail" name="email" />
+                        <span class="login__input-border"></span>
+                    <input id="space1" type="text" placeholder="Username" name="login" />
+                        <span class="login__input-border"></span>
+                    <input id="space2" type="password" placeholder="Password" name="senha"/>
+                        <span class="login__input-border"></span>
+                    <input id="space3" type="password" placeholder="Confirm your Password" name="senha2"/>
+                        <span class="login__input-border"></span>
+
+                    <div id="iconeCorreto" style="position: relative">
+                        <img src="https://media.istockphoto.com/vectors/tick-sign-element-green-checkmark-icon-isolated-on-white-background-vector-id1165098149?k=20&m=1165098149&s=170667a&w=0&h=wSIxlsbPo_4jwGYUvoKn_IhuCqiCIvLYa4GjNy8jG-Q=" style="width: 15%; position: relative; top: -130%; left: 88%">
+                    </div>
+
+                    <div id="iconeIncorreto" style="position: relative">
+                        <img src="https://media.istockphoto.com/vectors/red-cross-mark-drawn-grunge-x-in-vector-vector-id1175729985?k=20&m=1175729985&s=612x612&w=0&h=EU-GGvapec1NzAncoH6GAN2Df2udxpk-z9Ch2aTCvSY=" style="width: 10%; position: relative; top: -290%; left: 92%">
+                    </div>
+
+                    <span class="login__reset3" href="#">Register with your social medias</span>
+
+                    <a target="_blank" style="position: relative; top: 2%; right: 5%" href="https://www.instagram.com/"><img style=" width: 19%; position: relative; top: -60%; left: 10%" src="https://logodownload.org/wp-content/uploads/2017/04/instagram-logo.png"></a>
+                    <a target="_blank"  href="https://pt-br.facebook.com/login/device-based/regular/login/"><img style=" position:relative; top: -110%; left:38% ; width: 29%" src="https://www.itabirito.mg.leg.br/imagens/face.png"width="36%"></a>
+                    <a target="_blank" style="position: relative ; top: -19%; left:37% ; width: 72%" href="https://accounts.google.com/AccountChooser/signinchooser?flowName=GlifWebSignIn&flowEntry=AccountChooser"><img style=" width: 30%; position: relative; top: -75%; left:37%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROKQUbTuDNJ7R9P5g4E0yUxYhk7VQ3X6vHGN2kyu4mbZYCQYAgcCClTWbz1WSfkXTZulI&usqp=CAU"></a>
+
+                    <input id="botaoRegistro" type="submit" onclick="render()" value="Register" name="envia">
+                </form>
+            </div>
+
+            <div class="login__container" style="position: absolute; right: 25% ; width: 20% ; height: 50%">
+                <h1 class="login__title">Sign In</h1>
+                <form action="/login" method="post" class="login__form">
+                    <input id="space" type="text" placeholder="Username" name="login" />
+                        <span class="login__input-border"></span>
+                    <input id="space" type="password" placeholder="Password" name="senha"/>
+                        <span class="login__input-border"></span>
+
+                    <span class="login__reset2" href="#">Sign in with your social medias</span>
+
+                    <a target="_blank" style="position: relative; top: 10%; right: 5%" href="https://www.instagram.com/"><img style=" width: 16%; position: relative; top: 10%; left: 10%" src="https://logodownload.org/wp-content/uploads/2017/04/instagram-logo.png"></a>
+                    <a target="_blank" href="https://pt-br.facebook.com/login/device-based/regular/login/"><img style=" position:relative; top: -28%; left:38% ; width: 25%" src="https://www.itabirito.mg.leg.br/imagens/face.png"width="36%"></a>
+                    <a target="_blank" style="position: relative ; top: -17%; left:37% ; width: 66%" href="https://accounts.google.com/AccountChooser/signinchooser?flowName=GlifWebSignIn&flowEntry=AccountChooser"><img style="position: relative; top: -38%; left:37%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROKQUbTuDNJ7R9P5g4E0yUxYhk7VQ3X6vHGN2kyu4mbZYCQYAgcCClTWbz1WSfkXTZulI&usqp=CAU"width="28%"></a>
+
+                    <input id="botaoLogin"  type="submit"  value="Sign In" name="envia" >
+                    <a class="login__reset" onclick="popupOpen2()" href="#">Forgot Password??</a>
+                </form>
+            </div>
+
+            <div id="popup">
+                <div class="login__container" style=" border: 2px dotted black ;position: absolute; right: 33% ; width: 35% ; height: 30%; top: 29%">
+                    <h1 style="position: relative ; top: 5%" class="login__title">You have successfully registered</h1> <br><br>
+                        <div class="loading"></div>
+                        <input style="position: relative ; top: 15%; height: 25%" id="botaoLogin" type="submit" onclick="popupClose()" name="envia" value="Ok">
+                </div>
+            </div>
+
+            <div id="popup2">
+                <div class="login__container" style=" border: 2px dotted black ;position: absolute; right: 33% ; width: 35% ; height: 30%; top: 29%">
+                    <h1 style="position: relative ; top: 5%" class="login__title">Insert your email:</h1>
+                    <input onblur="aviso()" style="font-size: 30pt" id="email" type="email"  name="login" />
+                        <span class="login__input-border"></span>
+                    <input style="position: relative ; top: 15%; height: 25%" id="botaoLogin" type="submit" onclick="popupClose2()" name="envia" value="Ok">
+                </div>
+            </div>
+
+            <div style="position: absolute ; top:95%; left: 1%; color: dimgrey ; font-size: 10pt" id="desenvolvimento">
+                2022 © Copyright Felipe Moura Pereira <br>
+                Todos Os Direitos Reservados
+            </div>
+
+        </main>
+
+        <script>
+            const init = () => {
+                const validateEmail = (event) => {
+                    const input = event.currentTarget;
+                    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    const emailTest = regex.test(input.value);
+
+                    if(!emailTest) {
+                        submitButton.setAttribute("disabled", "disabled");
+                        input.nextElementSibling.classList.add('error');
+                    } else {
+                        submitButton.removeAttribute("disabled");
+                        input.nextElementSibling.classList.remove('error');
+                    }
+                }
+
+                const validatePassowrd = (event) => {
+                    const input = event.currentTarget;
+
+                    if(input.value.length < 8) {
+                        submitButton.setAttribute("disabled", "disabled");
+                        input.nextElementSibling.classList.add('error');
+                    } else {
+                        submitButton.removeAttribute("disabled");
+                        input.nextElementSibling.classList.remove('error');
+                    }
+                }
+
+                const inputEmail = document.querySelector('input[type="email"]');
+                const inputPassword = document.querySelector('input[type="password"]');
+                const submitButton = document.querySelector('.login__submit');
+
+                inputEmail.addEventListener('input', validateEmail);
+                inputPassword.addEventListener('input', validatePassowrd);
+
+                const errorHandler = () => {
+                    submitButton.classList.remove('loading');
+                    submitButton.classList.remove('success');
+                    submitButton.classList.add('error');
+                    submitButton.textContent = "Error :(";
+                }
+
+                const successHandler = () => {
+                    submitButton.classList.remove('loading');
+                    submitButton.classList.remove('error');
+                    submitButton.classList.add('success');
+                    submitButton.textContent = "Sent! :)";
+                }
+
+                if(submitButton) {
+                    submitButton.addEventListener('click', (event) => {
+                        event.preventDefault();
+
+                        submitButton.textContent = "Loading...";
+
+                        fetch('https://reqres.in/api/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email: inputEmail.value,
+                                password: inputPassword.value,
+                            })
+                        }).then((response) => {
+                            if (response.status !== 200) {
+                                return errorHandler();
+                            }
+
+                            successHandler();
+
+                        }).catch(() => {
+                            errorHandler();
+                        })
+                    })
+                }
+            }
+
+            function render(){
+                var email = document.getElementById("space").value;
+                var user = document.getElementById("space1").value;
+                var senha1 = document.getElementById("space2").value;
+                var senha2 = document.getElementById("space3").value;
+
+                if (senha1 === senha2 && email != 0 && user != 0 && senha1 != 0 && senha2 != 0 ){
+                    document.getElementById("iconeCorreto").style.visibility = "visible";
+                    document.getElementById("iconeIncorreto").style.visibility = "hidden";
+                    popupOpen()
+                }
+                else {
+                    document.getElementById("iconeIncorreto").style.visibility = "visible";
+                    document.getElementById("iconeCorreto").style.visibility = "hidden";
+                }
+
+            }
+
+            function popupOpen(){
+                document.getElementById("popup").style.visibility = "visible";
+            }
+
+            function popupOpen2(){
+                document.getElementById("popup2").style.visibility = "visible";
+                document.getElementById("email").value = '';
+            }
+            function popupClose(){
+                document.getElementById("popup").style.visibility = "hidden";
+            }
+            function popupClose2(){
+                document.getElementById("popup2").style.visibility = "hidden";
+            }
+
+            function hidden(){
+                document.getElementById("iconeIncorreto").style.visibility = "hidden";
+                document.getElementById("iconeCorreto").style.visibility = "hidden";
+                popupClose()
+                popupClose2()
+            }
+
+            function aviso(){
+                document.getElementById("email").value = "Verifique seu email"
+            }
+
+            hidden()
+            window.onload = init;
+        </script>
+
+    </body>
+</html>
